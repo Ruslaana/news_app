@@ -10,9 +10,11 @@ dp.middleware.setup(AntiFloodMiddleware())
 
 register_handlers(dp)
 
+
 async def on_startup(dp):
     await bot.set_webhook(WEBHOOK_URL)
-    logger.info("Bevar Ukraine News bot started and webhooks set.")
+    logger.info("News in Denmark bot started and webhooks set.")
+
 
 async def on_shutdown(dp):
     logger.info("Stopping the news bot...")
