@@ -8,6 +8,7 @@ from service.news_service import first_lunch_handler, translate_to_ukrainian
 
 LATEST_NEWS = {}
 
+
 async def start_command(message: types.Message):
     latest_new = first_lunch_handler()
     if not latest_new:
@@ -27,7 +28,8 @@ async def start_command(message: types.Message):
     )
 
     keyboard = InlineKeyboardMarkup().add(
-        InlineKeyboardButton("📖 Прочитати новину", callback_data="show_full_news")
+        InlineKeyboardButton("📖 Прочитати новину",
+                             callback_data="show_full_news")
     )
 
     if latest_new.image_url:
@@ -66,10 +68,11 @@ async def show_full_news(callback_query: CallbackQuery):
 
 
 async def echo_message(message: types.Message):
-    await message.answer(f"Ты сказал: {message.text}")
+    await message.answer(f"Ви написали: {message.text}")
 
 
 def register_handlers(dp: Dispatcher):
     dp.register_message_handler(start_command, commands=['start'])
-    dp.register_callback_query_handler(show_full_news, lambda c: c.data == "show_full_news")
+    dp.register_callback_query_handler(
+        show_full_news, lambda c: c.data == "show_full_news")
     dp.register_message_handler(echo_message)
