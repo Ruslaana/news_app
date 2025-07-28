@@ -1,6 +1,6 @@
 from aiogram import Bot, Dispatcher
 from configs.news_conf import TOKEN, WEBHOOK_URL, WEBHOOK_PATH, WEBAPP_HOST, WEBAPP_PORT
-from service.news_service import AntiFloodMiddleware, logger
+from service.news_service import AntiFloodMiddleware, logger, start_scheduler
 from controller.news_controller import register_handlers
 
 bot = Bot(token=TOKEN)
@@ -12,6 +12,7 @@ register_handlers(dp)
 
 
 async def on_startup(dp):
+    start_scheduler()
     await bot.set_webhook(WEBHOOK_URL)
     logger.info("News in Denmark bot started and webhooks set.")
 
